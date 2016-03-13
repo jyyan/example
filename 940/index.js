@@ -1,0 +1,1 @@
+$(document).ready(function(){return $("span.bar-change").peity("bar")});
