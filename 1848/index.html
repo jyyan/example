@@ -13,8 +13,9 @@ var data = {
     {children: [ {value: 100}, {value: 500}, {value: 900} ]}
   ]
 };
-var clip = Voronoi.Polygon.create(800, 400, 20);
+var clip = Voronoi.Polygon.create(800, 400, 60);
 var treemap = new Voronoi.Treemap(data, clip, 800, 400);
+var color = d3.scale.category20();
 function render() {
   d3.select("svg").selectAll("path").data(treemap.getPolygons()).enter().append("path")  // 資料綁定
   d3.selectAll("path").attr({
@@ -22,9 +23,11 @@ function render() {
       return d.map(function(it){ return "L" + it.x + " " + it.y; })
         .join(" ").replace(/^L/, "M");
     },
-    fill: "rgba(255,0,0,0.1)",
+    fill: function(d,i) {
+      return color(i);
+    },
     stroke: "#fff",
-    "stroke-width": 5
+    "stroke-width": 2
   });
 }
 setInterval(function() {
